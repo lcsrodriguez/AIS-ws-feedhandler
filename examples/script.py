@@ -1,3 +1,6 @@
 from AIS import *
 
-print("hello")
+m = []
+
+asyncio.run(connect_ais_stream(m))
+
