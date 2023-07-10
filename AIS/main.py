@@ -3,11 +3,22 @@ from tomli import load
 from .constants import *
 import json
 import asyncio
+from typing import List
+import requests
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from operator import itemgetter
 
 
 with open(f"{CONFIG_FILE}", mode="rb") as f:
     config_dict: dict = load(f)
     API_KEY: str = config_dict[WORK_ENV]["api"]["secret_key"]
+    GH_USERNAME: str = config_dict[WORK_ENV]["gh"]["username"]
+    GH_PASSWORD: str = config_dict[WORK_ENV]["gh"]["password"]
 
 
 async def connect_ais_stream(m):
@@ -22,8 +33,3 @@ async def connect_ais_stream(m):
             message = json.loads(message_json)
             print(message)
             m.append(message)
-
-"""
-TODO
-    - Add a feature to retrieve Usage (open Issue)
-"""

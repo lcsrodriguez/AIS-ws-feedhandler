@@ -1,2 +1,4 @@
 websockets==11.0.3
 tomli==2.0.1
+selenium==4.10.0
+requests==2.31.0
