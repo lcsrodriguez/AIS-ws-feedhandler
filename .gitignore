@@ -3,4 +3,5 @@
 */__pycache__
 .idea
 *.log
+*.csv
 config.toml

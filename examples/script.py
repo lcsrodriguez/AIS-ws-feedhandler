@@ -1,12 +1,13 @@
+import time
 from AIS import *
 
-#asyncio.run(connect_ais_stream(m))
+#asyncio.run(connect_ais_stream())
 
-options = Options()
+#options = Options()
 #options.add_argument('--headless')
 #options.add_argument('--disable-gpu')
 
-driver = webdriver.Firefox(options=options)
+driver = webdriver.Firefox() #(options=options)
 driver.minimize_window()
 driver.get(url=API_LOGIN_URL)
 
@@ -87,5 +88,8 @@ except Exception as e:
 
 usage_data: List[dict] = r.json()["data"]
 
-for rec in usage_data:
-    print(rec)
+df: pd.DataFrame = pd.DataFrame(data=usage_data)
+df["date"] = df["date"].str.replace(" +0000 UTC", "")
+df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d %H:%M:%S')
+df.rename(columns={"quantity": "messages"}, inplace=True)
+df.to_csv(path_or_buf="out.csv", index_label="id")
