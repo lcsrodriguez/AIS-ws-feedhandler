@@ -2,10 +2,15 @@ from AIS import *
 
 #asyncio.run(connect_ais_stream(m))
 
+options = Options()
+#options.add_argument('--headless')
+#options.add_argument('--disable-gpu')
 
-driver = webdriver.Firefox()
+driver = webdriver.Firefox(options=options)
 driver.minimize_window()
 driver.get(url=API_LOGIN_URL)
+
+print("Logging ...")
 
 try:
     # Clicking on "Sign In" button
@@ -46,9 +51,11 @@ while driver.current_url != API_ENDPOINT_AFTER_LOGIN:
         {"-"*100}
         """)
         driver.maximize_window()
-        time.sleep(5)
+        time.sleep(1)
         attempt = 0
     time.sleep(0.05)
+
+print("Logging done...")
 
 # Getting cookies from msession
 cookies = driver.get_cookies()
