@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 with open(f"{CONFIG_FILE}", mode="rb") as f:
+    print("Reading credentials")
     config_dict: dict = load(f)
     API_KEY: str = config_dict[WORK_ENV]["api"]["secret_key"]
     GH_USERNAME: str = config_dict[WORK_ENV]["gh"]["username"]

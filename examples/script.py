@@ -1,16 +1,13 @@
-import time
-
-import matplotlib.pyplot as plt
-
 from AIS import *
 
 #asyncio.run(connect_ais_stream())
 
-#options = Options()
+options = Options()
+options.add_argument(f"user-agent={USER_AGENT}")
 #options.add_argument('--headless')
 #options.add_argument('--disable-gpu')
 
-driver = webdriver.Firefox() #(options=options)
+driver = webdriver.Firefox(options=options)
 driver.minimize_window()
 driver.get(url=API_LOGIN_URL)
 
@@ -38,10 +35,11 @@ try:
     myElem2 = WebDriverWait(driver=driver,
                             timeout=DELAY_SELENIUM).until(
         EC.presence_of_element_located((By.ID, 'password')))
+    print(driver.current_url)
     driver.find_element(by=By.ID, value="login_field").send_keys(GH_USERNAME)
     driver.find_element(by=By.ID, value="password").send_keys(GH_PASSWORD)
     time.sleep(1)
-    driver.find_element(by=By.ID, value="password").submit()
+    driver.find_element(by=By.ID, value="login_field").submit()
 except TimeoutException:
     raise TimeoutException("Error")
 
@@ -50,6 +48,7 @@ attempt = 0
 while driver.current_url != API_ENDPOINT_AFTER_LOGIN:
     attempt += 1
     if attempt > LIMIT_ATTEMPT_AFTER_LOGIN:
+        # TODO: Handle here the case where 'Reauthorization required'
         print(f"""
         {"-"*100}
         2 cases:
@@ -83,7 +82,7 @@ try:
                           "Origin": "https://aisstream.io",
                           "Content-Type": "application/json",
                           "Connection": "keep-alive",
-                          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36",
+                          "User-Agent": USER_AGENT,
                       },
                       cookies={c: cookies[i]["value"] for c, i in cookiesNames.items()})
 
@@ -105,12 +104,13 @@ df.to_csv(path_or_buf="out.csv", index_label="id")
 
 print("Plotting...")
 
-ax = df.plot.bar(x='date', y='messages', color='red', figsize=(15, 8))
+ax = df.plot.bar(x='date', y='messages', color='red', figsize=(15, 8), label="# of messages consumed")
 plt.xticks(ticks=list(df.index)[::5],
-           labels=df["date"].to_numpy()[::5],
+           labels=[pd.to_datetime(k).strftime("%Y-%m-%d %H:%M:%S") for k in df['date'].to_numpy()[::5]],
            rotation=45)
 plt.grid(visible=True)
 plt.gcf().subplots_adjust(bottom=0.25)
+plt.legend(loc="upper left", title="Labels")
 plt.xlabel("Date/Time")
 plt.ylabel("Messages consumed")
 plt.title("Messages consumed over the past 24 hours")
