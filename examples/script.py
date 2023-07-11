@@ -1,4 +1,7 @@
 import time
+
+import matplotlib.pyplot as plt
+
 from AIS import *
 
 #asyncio.run(connect_ais_stream())
@@ -32,9 +35,12 @@ try:
     myElem = WebDriverWait(driver=driver,
                            timeout=DELAY_SELENIUM).until(
         EC.presence_of_element_located((By.ID, 'login_field')))
+    myElem2 = WebDriverWait(driver=driver,
+                            timeout=DELAY_SELENIUM).until(
+        EC.presence_of_element_located((By.ID, 'password')))
     driver.find_element(by=By.ID, value="login_field").send_keys(GH_USERNAME)
     driver.find_element(by=By.ID, value="password").send_keys(GH_PASSWORD)
-    time.sleep(0.5)
+    time.sleep(1)
     driver.find_element(by=By.ID, value="password").submit()
 except TimeoutException:
     raise TimeoutException("Error")
@@ -92,4 +98,20 @@ df: pd.DataFrame = pd.DataFrame(data=usage_data)
 df["date"] = df["date"].str.replace(" +0000 UTC", "")
 df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d %H:%M:%S')
 df.rename(columns={"quantity": "messages"}, inplace=True)
+
+print("On-disk saving...")
+
 df.to_csv(path_or_buf="out.csv", index_label="id")
+
+print("Plotting...")
+
+ax = df.plot.bar(x='date', y='messages', color='red', figsize=(15, 8))
+plt.xticks(ticks=list(df.index)[::5],
+           labels=df["date"].to_numpy()[::5],
+           rotation=45)
+plt.grid(visible=True)
+plt.gcf().subplots_adjust(bottom=0.25)
+plt.xlabel("Date/Time")
+plt.ylabel("Messages consumed")
+plt.title("Messages consumed over the past 24 hours")
+plt.show()

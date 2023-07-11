@@ -15,6 +15,7 @@ from selenium.webdriver.firefox.options import Options
 from operator import itemgetter
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 with open(f"{CONFIG_FILE}", mode="rb") as f:
     config_dict: dict = load(f)
