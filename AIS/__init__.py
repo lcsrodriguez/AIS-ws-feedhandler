@@ -1,1 +1,2 @@
-from .main import *
+from .Usage import *
+from .Scraper import *
