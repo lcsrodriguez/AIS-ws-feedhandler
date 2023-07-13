@@ -1,3 +1,5 @@
+# Including
+# ---------------------------
 .DS_Store
 .venv
 */__pycache__
@@ -5,5 +7,10 @@
 *.log
 *.csv
 *.pkl
+*.png
 config.toml
 TODO.md
+
+# Excluding
+# ---------------------------
+!assets/img/*.png

@@ -118,8 +118,10 @@ class Usage:
         return self.cookies
 
     def getUsage(self,
-                 save: bool = True,
-                 plot: bool = True) -> pd.DataFrame:
+                 plot: bool = True,
+                 saveResults: bool = True,
+                 savePlot: bool = True,
+                 ) -> pd.DataFrame:
 
         if self.cookies is None \
                 or (isinstance(self.cookies, list) and len(self.cookies) == 0) \
@@ -154,8 +156,8 @@ class Usage:
         df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d %H:%M:%S')
         df.rename(columns={"quantity": "messages"}, inplace=True)
 
-        if save:
-            print("On-disk saving...")
+        if saveResults:
+            print("Results on-disk saving...")
             df.to_csv(path_or_buf=f"../out/usages/{self.NOW:%Y-%m-%d}.csv", index_label="id")
 
         if plot:
@@ -170,6 +172,12 @@ class Usage:
             plt.xlabel("Date/Time")
             plt.ylabel("Messages consumed")
             plt.title("Messages consumed over the past 24 hours")
+
+        if savePlot:
+            print("Results on-disk saving...")
+            plt.savefig(f"../out/plots/{self.NOW:%Y-%m-%d}.png", dpi=300)
+
+        if plot:
             plt.show()
 
         return df
