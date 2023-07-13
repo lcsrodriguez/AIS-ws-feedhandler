@@ -2,6 +2,12 @@ from utils import *
 
 
 class Usage:
+    __slots__ = ("driver",
+                 "cookies",
+                 "NOW",
+                 "NOW_MINUS_1_WEEK"
+                 )
+
     def __init__(self) -> None:
         self.driver = None
         self.cookies: List[dict] = None
@@ -179,5 +185,4 @@ class Usage:
 
         if plot:
             plt.show()
-
         return df
