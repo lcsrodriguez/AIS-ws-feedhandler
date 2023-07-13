@@ -1,0 +1,13 @@
+[local]
+api.secret_key = "<AISSTREAM API KEY HERE>"
+gh.username="<GH_USERNAME HERE>"
+gh.password="<GH_PASSWORS HERE>"
+
+[dev]
+api.secret_key = ""
+
+[uat]
+api.secret_key = ""
+
+[prod]
+api.secret_key = ""
