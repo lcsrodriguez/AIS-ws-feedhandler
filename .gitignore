@@ -4,5 +4,6 @@
 .idea
 *.log
 *.csv
+*.pkl
 config.toml
 TODO.md
