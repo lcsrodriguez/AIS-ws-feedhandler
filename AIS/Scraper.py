@@ -1,6 +1,11 @@
 from .utils import *
 
 
+class Scraper:
+    def __init__(self) -> None:
+        pass
+
+
 async def connect_ais_stream():
     async with websockets.connect(uri=f"{API_BASE_URL}") as websocket:
         subscribe_message = {

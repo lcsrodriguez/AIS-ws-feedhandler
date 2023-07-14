@@ -125,6 +125,7 @@ class Usage:
 
     def getUsage(self,
                  plot: bool = True,
+                 stats: bool = True,
                  saveResults: bool = True,
                  savePlot: bool = True,
                  ) -> pd.DataFrame:
@@ -161,6 +162,14 @@ class Usage:
         df["date"] = df["date"].str.replace(" +0000 UTC", "")
         df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d %H:%M:%S')
         df.rename(columns={"quantity": "messages"}, inplace=True)
+
+        if stats:
+            STATS = {
+                "sum": df["messages"].sum(),
+                "avg": df["messages"].mean(),
+                "avg2": df[df["messages"] > 0]["messages"].mean()
+            }
+            print(pd.Series(data=STATS))
 
         if saveResults:
             print("Results on-disk saving...")
