@@ -163,12 +163,14 @@ class Usage:
         df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d %H:%M:%S')
         df.rename(columns={"quantity": "messages"}, inplace=True)
 
+        STATS = {
+            "sum": df["messages"].sum(),
+            "avg": df["messages"].mean(),
+            "avg2": df[df["messages"] > 0]["messages"].mean(),
+            "median": df["messages"].median(),
+            "median2": df[df["messages"] > 0]["messages"].median(),
+        }
         if stats:
-            STATS = {
-                "sum": df["messages"].sum(),
-                "avg": df["messages"].mean(),
-                "avg2": df[df["messages"] > 0]["messages"].mean()
-            }
             print(pd.Series(data=STATS))
 
         if saveResults:
@@ -177,16 +179,22 @@ class Usage:
 
         if plot:
             print("Plotting...")
-            ax = df.plot.bar(x='date', y='messages', color='red', figsize=(15, 8), label="# of messages consumed")
+            _ = df.plot.bar(x='date', y='messages', color='red', figsize=(15, 8), label="# of msgs consumed")
             plt.xticks(ticks=list(df.index)[::5],
                        labels=[pd.to_datetime(k).strftime("%Y-%m-%d %H:%M:%S") for k in df['date'].to_numpy()[::5]],
                        rotation=45)
+
+            plt.axhline(y=STATS["avg"], ls="--", alpha=0.7, color="green", label="Average # of msgs (w/ 0)")
+            plt.axhline(y=STATS["median2"], ls="--", alpha=0.7, color="orange", label="Median # of msgs (w/o 0)")
+            plt.axhline(y=STATS["avg2"], ls="--", alpha=0.7, color="blue", label="Average # of msgs (w/o 0)")
+
             plt.grid(visible=True)
             plt.gcf().subplots_adjust(bottom=0.25)
             plt.legend(loc="upper left", title="Labels")
             plt.xlabel("Date/Time")
             plt.ylabel("Messages consumed")
-            plt.title("Messages consumed over the past 24 hours")
+            plt.title("Messages consumed over the past 24 hours\n"
+                      + f"{df['date'].iloc[0]} - {df['date'].iloc[-1]}")
 
         if savePlot:
             print("Results on-disk saving...")
