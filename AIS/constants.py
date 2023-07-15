@@ -9,3 +9,10 @@ API_ENDPOINT_AFTER_LOGIN: str = "https://aisstream.io/customer.html"
 DELAY_SELENIUM: int = 2
 LIMIT_ATTEMPT_AFTER_LOGIN: int = 110
 USER_AGENT: str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36"
+
+
+class WorkEnv:
+    LOCAL: str = "local"
+    DEV: str = "dev"
+    PREPROD: str = "uat"
+    PROD: str = "prod"
