@@ -11,7 +11,7 @@ To use it, please sign up using your GitHub account [here](https://aisstream.io/
 
 
 <p align="center">
-    <img alt="Example" width="800px" src="assets/img/ex.png">
+    <img alt="Example" width="750px" src="assets/img/ex.png">
 </p>
 
 
@@ -21,19 +21,27 @@ To use it, please sign up using your GitHub account [here](https://aisstream.io/
 ```
 .
 ├── AIS/
+│   ├── Config.py
 │   ├── Scraper.py
 │   ├── Usage.py
 │   ├── __init__.py
 │   ├── constants.py
 │   └── utils.py
+├── Makefile
 ├── README.md
+├── assets/
+│   ├── _empty.config.toml
+│   └── img
 ├── config.toml
 ├── examples/
 │   └── script.py
 ├── out/
-│   ├── cookies/
-│   └── usages/
-└── requirements.txt
+│   ├── cookies
+│   ├── plots
+│   └── usages
+├── requirements.txt
+└── setup.py
+
 ```
 
 ## Getting started

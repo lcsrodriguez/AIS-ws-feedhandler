@@ -27,4 +27,4 @@ class Config:
     @staticmethod
     def getConfig() -> dict:
         print("Getting credentials")
-        return Config._config if bool(Config._config) is False else Config._readConfig()
+        return Config._config if bool(Config._config) is True else Config._readConfig()

@@ -4,8 +4,6 @@ from AIS import *
 
 #u = Usage().getUsage()
 
-c = Config()
-d = Config()
-
+c = Config("D")
 
 print(c.getConfig())
