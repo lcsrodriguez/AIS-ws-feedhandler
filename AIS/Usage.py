@@ -203,3 +203,6 @@ class Usage:
         if plot:
             plt.show()
         return df
+
+    def getUsageLink(self):
+        return API_USAGE_URL

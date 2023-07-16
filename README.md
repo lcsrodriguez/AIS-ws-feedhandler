@@ -46,8 +46,22 @@ To use it, please sign up using your GitHub account [here](https://aisstream.io/
 
 ## Getting started
 
+```shell
+git clone https://github.com/lcsrodriguez/AIS-ws-feedhandler.git
+cd AIS-ws-feedhandler/
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip3 install -r requirements.txt
+pip3 freeze
+
+python3 setup.py sdist bdist_wheel # Build the package from source
 ```
 
+Run the example script:
+```
+python3 examples/script.py
 ```
 
 
