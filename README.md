@@ -6,6 +6,10 @@
 
 ## Overview
 
+This tool allows the user to **gather**, **store**, **process** and **track usage** of AIS data collection.
+
+> *It can also be used to simulate a **real-time data source** to better handle streaming.*
+
 Data provided by the **[AISStream.io](https://aisstream.io/)** API. 
 To use it, please sign up using your GitHub account [here](https://aisstream.io/authenticate). 
 
@@ -53,8 +57,9 @@ The API offers access to various kind of messages for the AIS[^1] protocol:
 │   └── usages
 ├── requirements.txt
 └── setup.py
-
 ```
+
+To reproduce the file tree, run: `tree -L 2 -I '*.csv|*.log'`
 
 ## Getting started
 
