@@ -1,11 +1,13 @@
 from utils import *
+from .Config import Config
 
 
 class Usage:
     __slots__ = ("driver",
                  "cookies",
                  "NOW",
-                 "NOW_MINUS_1_WEEK"
+                 "NOW_MINUS_1_WEEK",
+                 "config"
                  )
 
     def __init__(self) -> None:
@@ -13,6 +15,7 @@ class Usage:
         self.cookies: List[dict] = None
         self.NOW: datetime.datetime = None
         self.NOW_MINUS_1_WEEK: datetime.datetime = None
+        self.config = Config.getConfig()
 
     def _getCookies(self) -> List[dict]:
 
@@ -84,8 +87,8 @@ class Usage:
                               timeout=DELAY_SELENIUM).until(
                 EC.presence_of_element_located((By.ID, 'password')))
             print(self.driver.current_url)
-            self.driver.find_element(by=By.ID, value="login_field").send_keys(GH_USERNAME)
-            self.driver.find_element(by=By.ID, value="password").send_keys(GH_PASSWORD)
+            self.driver.find_element(by=By.ID, value="login_field").send_keys(self.config["GH_USERNAME"])
+            self.driver.find_element(by=By.ID, value="password").send_keys(self.config["GH_PASSWORD"])
             time.sleep(DELAY_SELENIUM)
             self.driver.find_element(by=By.ID, value="password").submit()
         except TimeoutException:
@@ -194,7 +197,9 @@ class Usage:
             plt.xlabel("Date/Time")
             plt.ylabel("Messages consumed")
             plt.title("Messages consumed over the past 24 hours\n"
-                      + f"{df['date'].iloc[0]} - {df['date'].iloc[-1]}")
+                      + f"{df['date'].iloc[0]} - {df['date'].iloc[-1]}"
+                      + "\n"
+                      + f"Total # of msgs over past 24h: {format(STATS['sum'], ',').replace(',', ' ').replace('.', ',')}")
 
         if savePlot:
             print("Results on-disk saving...")
