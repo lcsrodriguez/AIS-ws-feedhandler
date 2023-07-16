@@ -9,6 +9,18 @@
 Data provided by the **[AISStream.io](https://aisstream.io/)** API. 
 To use it, please sign up using your GitHub account [here](https://aisstream.io/authenticate). 
 
+AISStream is used to:
+> Track ship movements, monitor maritime accidents and discover ship's cargo...
+
+The API offers access to various kind of messages for the AIS[^1] protocol:
+> - Ship Property and Voyage Data
+> - SAR Aircraft Position
+> - Accident And Danger Reports
+> - Binary Ship To Ship Messages
+> - ...
+
+### Features
+
 
 <p align="center">
     <img alt="Example" width="750px" src="assets/img/ex.png">
@@ -86,3 +98,5 @@ api.secret_key = ""
 ## License
 
 [MIT](LICENSE)
+
+[^1]: AIS is a broadcast system that transmits the unique identification, position, course, and speed, on a vessel
