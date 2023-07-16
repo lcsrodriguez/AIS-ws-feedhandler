@@ -196,7 +196,7 @@ class Usage:
             plt.legend(loc="upper left", title="Labels")
             plt.xlabel("Date/Time")
             plt.ylabel("Messages consumed")
-            plt.title("Messages consumed over the past 24 hours\n"
+            plt.title("Messages consumed over the past 24 hours (UTC time)\n"
                       + f"{df['date'].iloc[0]} - {df['date'].iloc[-1]}"
                       + "\n"
                       + f"Total # of msgs over past 24h: {format(STATS['sum'], ',').replace(',', ' ').replace('.', ',')}")
