@@ -1,7 +1,11 @@
 from AIS import *
 
-#asyncio.run(connect_ais_stream())
 
-u = Usage().getUsage()
-
-#c = Config()
+if __name__ == "__main__":
+    try:
+        asyncio.run(connect_ais_stream())
+    except KeyboardInterrupt:
+        print("KBI")
+    finally:
+        #u = Usage().getUsage()
+        pass

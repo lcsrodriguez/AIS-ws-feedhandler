@@ -8,6 +8,7 @@
 *.csv
 *.pkl
 *.png
+*.dat
 config.toml
 TODO.md
 
