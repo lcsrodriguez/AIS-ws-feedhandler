@@ -1,6 +1,6 @@
 websockets==11.0.3
 tomli==2.0.1
-selenium==4.10.0
+selenium==4.13.0
 requests==2.31.0
 pandas==2.0.3
 matplotlib==3.7.2
